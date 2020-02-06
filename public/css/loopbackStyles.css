@@ -14,6 +14,10 @@
   font-family: 'helvetica neue', helvetica, arial, sans-serif !important;
 }
 
+.swagger-section .swagger-ui-wrap {
+	max-width: none !important;
+}
+
 /* layout spacing and global colors */
 body {
   padding-top: 60px;
@@ -21,20 +25,23 @@ body {
 }
 
 body #header {
-  background-color: #08592b !important;
+  background-color: #00373b !important;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1;
 }
 
-body #header a#logo {
-  padding: 20px 0 20px 60px !important;
+body #header a#logo { 
+  padding: 0 10px 10px 40px !important;
+  background-image: url('https://files.footovision.com/public/rsc/images/logo__.png');
+  background-size: 28px 28px;
+  background-repeat: no-repeat;
+  background-origin: padding-box;
 }
 
 body #header form#api_selector .input a#explore {
-  background-color: #7dbd33 !important;
-  cursor: pointer;
+  background-color: #699fa3 !important;
 }
 
 
