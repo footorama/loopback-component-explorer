@@ -19,7 +19,7 @@ $(function() {
     loadSwaggerUi(config);
   });
 
-  var accessToken;
+  //var accessToken;
   function loadSwaggerUi(config) {
     var methodOrder = ['get', 'head', 'options', 'put', 'post', 'delete'];
     /* eslint-disable camelcase */
@@ -44,12 +44,12 @@ $(function() {
         });
 
         // Recover accessToken from localStorage if present.
-        if (window.localStorage) {
-          var key = window.localStorage.getItem(lsKey);
-          if (key) {
-            $('#input_accessToken').val(key).submit();
-          }
-        }
+        // if (window.localStorage) {
+        //   var key = window.localStorage.getItem(lsKey);
+        //   if (key) {
+        //     $('#input_accessToken').val(key).submit();
+        //   }
+        // }
       },
       onFailure: function(data) {
         log('Unable to Load SwaggerUI');
@@ -67,59 +67,59 @@ $(function() {
     });
     /* eslint-disable camelcase */
 
-    $('#explore').click(setAccessToken);
-    $('#api_selector').submit(setAccessToken);
-    $('#input_accessToken').keyup(onInputChange);
+    // $('#explore').click(setAccessToken);
+    // $('#api_selector').submit(setAccessToken);
+    // $('#input_accessToken').keyup(onInputChange);
 
     window.swaggerUi.load();
   }
 
-  function setAccessToken(e) {
-    e.stopPropagation(); // Don't let the default #explore handler fire
-    e.preventDefault();
-    var authOptions = window.swaggerUi.options.auth || {};
-    var keyLocation = authOptions.in || 'query';
-    var keyName = authOptions.name || 'access_token';
-    var key = $('#input_accessToken')[0].value;
-    log('key: ' + key);
-    if (key && key.trim() !== '') {
-      log('added accessToken ' + key);
-      var apiKeyAuth =
-        new SwaggerClient.ApiKeyAuthorization(keyName, key, keyLocation);
-      window.swaggerUi.api.clientAuthorizations.add('key', apiKeyAuth);
-      accessToken = key;
-      $('.accessTokenDisplay').text('Token Set.').addClass('set');
-      $('.accessTokenDisplay').attr('data-tooltip', 'Current Token: ' + key);
+  // function setAccessToken(e) {
+  //   e.stopPropagation(); // Don't let the default #explore handler fire
+  //   e.preventDefault();
+  //   var authOptions = window.swaggerUi.options.auth || {};
+  //   var keyLocation = authOptions.in || 'query';
+  //   var keyName = authOptions.name || 'access_token';
+  //   var key = $('#input_accessToken')[0].value;
+  //   log('key: ' + key);
+  //   if (key && key.trim() !== '') {
+  //     log('added accessToken ' + key);
+  //     var apiKeyAuth =
+  //       new SwaggerClient.ApiKeyAuthorization(keyName, key, keyLocation);
+  //     window.swaggerUi.api.clientAuthorizations.add('key', apiKeyAuth);
+  //     accessToken = key;
+  //     $('.accessTokenDisplay').text('Token Set.').addClass('set');
+  //     $('.accessTokenDisplay').attr('data-tooltip', 'Current Token: ' + key);
 
-      // Save this token to localStorage if we can to make it persist on refresh.
-      if (window.localStorage) {
-        window.localStorage.setItem(lsKey, key);
-      }
-    } else {
-      // If submitted with an empty token, remove the current token. Can be
-      // useful to intentionally remove authorization.
-      log('removed accessToken.');
-      $('.accessTokenDisplay').text('Token Not Set.').removeClass('set');
-      $('.accessTokenDisplay').removeAttr('data-tooltip');
-      if (window.swaggerUi) {
-        window.swaggerUi.api.clientAuthorizations.remove('key');
-      }
-      if (window.localStorage) {
-        window.localStorage.removeItem(lsKey);
-      }
-    }
-  }
+  //     // Save this token to localStorage if we can to make it persist on refresh.
+  //     if (window.localStorage) {
+  //       window.localStorage.setItem(lsKey, key);
+  //     }
+  //   } else {
+  //     // If submitted with an empty token, remove the current token. Can be
+  //     // useful to intentionally remove authorization.
+  //     log('removed accessToken.');
+  //     $('.accessTokenDisplay').text('Token Not Set.').removeClass('set');
+  //     $('.accessTokenDisplay').removeAttr('data-tooltip');
+  //     if (window.swaggerUi) {
+  //       window.swaggerUi.api.clientAuthorizations.remove('key');
+  //     }
+  //     if (window.localStorage) {
+  //       window.localStorage.removeItem(lsKey);
+  //     }
+  //   }
+  // }
 
-  function onInputChange(e) {
-    var el = e.currentTarget;
-    var key = $(e.currentTarget)[0].value;
-    if (!key || key.trim === '') return;
-    if (accessToken !== key) {
-      $('.accessTokenDisplay').text('Token changed; submit to confirm.');
-    } else {
-      $('.accessTokenDisplay').text('Token Set.');
-    }
-  }
+  // function onInputChange(e) {
+  //   var el = e.currentTarget;
+  //   var key = $(e.currentTarget)[0].value;
+  //   if (!key || key.trim === '') return;
+  //   if (accessToken !== key) {
+  //     $('.accessTokenDisplay').text('Token changed; submit to confirm.');
+  //   } else {
+  //     $('.accessTokenDisplay').text('Token Set.');
+  //   }
+  // }
 
   function log() {
     if ('console' in window) {
