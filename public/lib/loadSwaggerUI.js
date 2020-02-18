@@ -13,7 +13,7 @@ $(function() {
     window.SwaggerTranslator.translate();
   }
 
-  var lsKey = 'swagger_accessToken';
+  // var lsKey = 'swagger_accessToken';
   $.getJSON('config.json', function(config) {
     log(config);
     loadSwaggerUi(config);
@@ -34,6 +34,8 @@ $(function() {
         log('Loaded SwaggerUI');
         log(swaggerApi);
         log(swaggerUi);
+
+        $('#headtitle').html(swaggerApi.info.title);
 
         if (window.SwaggerTranslator) {
           window.SwaggerTranslator.translate();
